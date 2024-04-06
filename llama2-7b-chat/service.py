@@ -20,7 +20,7 @@ MODEL_ID = "meta-llama/Llama-2-7b-chat-hf"
 
 @openai_endpoints(served_model=MODEL_ID)
 @bentoml.service(
-    name="bentovllm-llama2-7b-chat-service",
+    name="llama2",
     traffic={
         "timeout": 300,
     },
