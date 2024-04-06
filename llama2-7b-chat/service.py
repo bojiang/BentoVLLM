@@ -3,10 +3,8 @@ from typing import AsyncGenerator
 
 import bentoml
 from annotated_types import Ge, Le
-from typing_extensions import Annotated
-
 from bentovllm_openai.utils import openai_endpoints
-
+from typing_extensions import Annotated
 
 MAX_TOKENS = 1024
 PROMPT_TEMPLATE = """<s>[INST] <<SYS>>
@@ -18,7 +16,7 @@ If a question does not make any sense, or is not factually coherent, explain why
 {user_prompt} [/INST] """
 
 MODEL_ID = "meta-llama/Llama-2-7b-chat-hf"
-BENTO_MODEL_TAG = MODEL_ID.lower().replace("/", "--")
+
 
 @openai_endpoints(served_model=MODEL_ID)
 @bentoml.service(
@@ -32,17 +30,10 @@ BENTO_MODEL_TAG = MODEL_ID.lower().replace("/", "--")
     },
 )
 class VLLM:
-
-    bento_model_ref = bentoml.models.get(BENTO_MODEL_TAG)
-
     def __init__(self) -> None:
         from vllm import AsyncEngineArgs, AsyncLLMEngine
 
-        ENGINE_ARGS = AsyncEngineArgs(
-            model=self.bento_model_ref.path,
-            max_model_len=MAX_TOKENS
-        )
-        
+        ENGINE_ARGS = AsyncEngineArgs(model=MODEL_ID, max_model_len=MAX_TOKENS)
         self.engine = AsyncLLMEngine.from_engine_args(ENGINE_ARGS)
 
     @bentoml.api
