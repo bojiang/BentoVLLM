@@ -2,7 +2,7 @@ service: service:VLLM
 name: llama2
 version: 7b
 bentoml_version: 1.2.10
-creation_time: '2024-04-10T16:44:01.127716+00:00'
+creation_time: '2024-04-10T17:58:03.690206+00:00'
 labels:
   owner: bentoml-team
   stage: demo
@@ -21,7 +21,8 @@ services:
     resources:
       gpu: 1
       gpu_type: nvidia-l4
-envs: []
+envs:
+- name: HF_TOKEN
 schema:
   name: llama2
   type: service
@@ -53,7 +54,8 @@ docker:
   distro: debian
   python_version: '3.11'
   cuda_version: null
-  env: null
+  env:
+    HF_TOKEN: ''
   system_packages: null
   setup_script: null
   base_image: null
