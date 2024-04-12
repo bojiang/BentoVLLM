@@ -1,6 +1,6 @@
 # llama2:7b
 
-[![pypi_status](https://img.shields.io/badge/BentoML-1.2.10-informational)](https://pypi.org/project/BentoML)
+[![pypi_status](https://img.shields.io/badge/BentoML-1.2.11-informational)](https://pypi.org/project/BentoML)
 [![documentation_status](https://readthedocs.org/projects/bentoml/badge/?version=latest)](https://docs.bentoml.com/)
 [![join_slack](https://badgen.net/badge/Join/BentoML%20Slack/cyan?icon=slack)](https://l.bentoml.com/join-slack-swagger)
 [![BentoML GitHub Repo](https://img.shields.io/github/stars/bentoml/bentoml?style=social)](https://github.com/bentoml/BentoML)
