@@ -5,7 +5,7 @@
 # ===========================================
 
 # Block SETUP_BENTO_BASE_IMAGE
-FROM yatai/pytorch:3.11-2.1.2-1.2.11 as base-container
+FROM yatai/pytorch:3.10-2.1.2-1.2.11 as base-container
 
 ENV LANG=C.UTF-8
 

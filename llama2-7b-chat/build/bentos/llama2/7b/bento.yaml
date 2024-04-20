@@ -2,7 +2,7 @@ service: service:VLLM
 name: llama2
 version: 7b
 bentoml_version: 1.2.11
-creation_time: '2024-04-20T19:03:19.607663+00:00'
+creation_time: '2024-04-20T19:06:38.501365+00:00'
 labels:
   owner: bentoml-team
   stage: demo
@@ -58,7 +58,7 @@ docker:
     HF_TOKEN: ''
   system_packages: null
   setup_script: null
-  base_image: yatai/pytorch:3.11-2.1.2-1.2.11
+  base_image: yatai/pytorch:3.10-2.1.2-1.2.11
   dockerfile_template: null
 python:
   requirements_txt: ./requirements.txt
