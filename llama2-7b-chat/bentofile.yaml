@@ -10,5 +10,3 @@ python:
   lock_packages: false
 envs:
   - name: HF_TOKEN
-docker:
-  base_image: yatai/pytorch:3.10-2.1.2-1.2.11
