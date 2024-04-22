@@ -10,3 +10,5 @@ python:
   lock_packages: false
 envs:
   - name: HF_TOKEN
+  - name: CLLAMA_MODEL
+    value: llama2

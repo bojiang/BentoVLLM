@@ -1,34 +1,57 @@
 import uuid
+import os
 from typing import AsyncGenerator
+from typing_extensions import Annotated
 
 import bentoml
 from annotated_types import Ge, Le
 from bentovllm_openai.utils import openai_endpoints
-from typing_extensions import Annotated
 
-MAX_TOKENS = 1024
-PROMPT_TEMPLATE = """<s>[INST] <<SYS>>
+
+PROMPT_TEMPLATE_MAP = {
+    "llama2:7b-chat": """<s>[INST] <<SYS>>
 You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe. Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
 
 If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.
 <</SYS>>
 
-{user_prompt} [/INST] """
+{user_prompt} [/INST] """,
+}
 
-MODEL_ID = "meta-llama/Llama-2-7b-chat-hf"
+MODEL_ID_MAP = {
+    "llama2:7b-chat": "meta-llama/Llama-2-7b-chat-hf",
+}
+
+MODEL_CONFIG_MAP = {
+    "llama2:7b-chat": {
+        "name": "llama2",
+        "traffic": {
+            "timeout": 300,
+        },
+        "resources": {
+            "gpu": 1,
+            "gpu_type": "nvidia-l4",
+        },
+    },
+}
+
+MODEL_ALIAS_MAP = {
+    "llama2": "llama2:7b-chat",
+    "llama2:7b": "llama2:7b-chat",
+    "llama2:7b-chat": "llama2:7b-chat",
+}
+
+
+MODEL_ALIAS = os.environ["CLLAMA_MODEL"]
+MODEL = MODEL_ALIAS_MAP[MODEL_ALIAS]
+PROMPT_TEMPLATE = PROMPT_TEMPLATE_MAP[MODEL]
+MODEL_ID = MODEL_ID_MAP[MODEL]
+MODEL_CONFIG = MODEL_CONFIG_MAP[MODEL]
+MAX_TOKENS = 1024
 
 
 @openai_endpoints(served_model=MODEL_ID)
-@bentoml.service(
-    name="llama2",
-    traffic={
-        "timeout": 300,
-    },
-    resources={
-        "gpu": 1,
-        "gpu_type": "nvidia-l4",
-    },
-)
+@bentoml.service(**MODEL_CONFIG)
 class VLLM:
     def __init__(self) -> None:
         from vllm import AsyncEngineArgs, AsyncLLMEngine
