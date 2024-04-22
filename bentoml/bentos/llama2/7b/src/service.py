@@ -76,7 +76,12 @@ class VLLM:
     def __init__(self) -> None:
         from vllm import AsyncEngineArgs, AsyncLLMEngine
 
-        ENGINE_ARGS = AsyncEngineArgs(model=MODEL_ID, max_model_len=MAX_TOKENS)
+        ENGINE_ARGS = AsyncEngineArgs(
+            model=MODEL_ID,
+            max_model_len=MAX_TOKENS,
+        )
+        if MODEL == "mistral:7b-instruct":
+            ENGINE_ARGS.dtype = "half"
         self.engine = AsyncLLMEngine.from_engine_args(ENGINE_ARGS)
 
     @bentoml.api
