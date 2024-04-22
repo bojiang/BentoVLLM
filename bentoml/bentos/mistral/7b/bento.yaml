@@ -1,21 +1,21 @@
 service: service:VLLM
-name: llama2
+name: mistral
 version: 7b
 bentoml_version: 1.2.11
-creation_time: '2024-04-22T06:36:16.193579+00:00'
+creation_time: '2024-04-22T06:36:19.790925+00:00'
 labels:
   owner: bentoml-team
   stage: demo
 models: []
 runners: []
-entry_service: llama2
+entry_service: mistral
 services:
-- name: llama2
+- name: mistral
   service: ''
   models: []
   dependencies: []
   config:
-    name: llama2
+    name: mistral
     traffic:
       timeout: 300
     resources:
@@ -26,7 +26,7 @@ envs:
 - name: CLLAMA_MODEL
   value: llama2
 schema:
-  name: llama2
+  name: mistral
   type: service
   routes:
   - name: generate
