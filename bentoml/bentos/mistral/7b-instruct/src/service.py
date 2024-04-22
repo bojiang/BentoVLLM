@@ -37,7 +37,7 @@ MODEL_CONFIG_MAP = {
         },
         "resources": {
             "gpu": 1,
-            "gpu_type": "nvidia-l4",
+            "gpu_type": "nvidia-tesla-t4",
         },
     },
     "mistral:7b-instruct": {

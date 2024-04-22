@@ -2,7 +2,7 @@ service: service:VLLM
 name: mistral
 version: 7b
 bentoml_version: 1.2.11
-creation_time: '2024-04-22T07:27:51.854350+00:00'
+creation_time: '2024-04-22T08:47:17.493011+00:00'
 labels:
   owner: bentoml-team
   stage: demo

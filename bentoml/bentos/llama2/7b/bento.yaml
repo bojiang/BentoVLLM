@@ -2,7 +2,7 @@ service: service:VLLM
 name: llama2
 version: 7b
 bentoml_version: 1.2.11
-creation_time: '2024-04-22T07:27:48.332379+00:00'
+creation_time: '2024-04-22T08:47:13.357793+00:00'
 labels:
   owner: bentoml-team
   stage: demo
@@ -20,7 +20,7 @@ services:
       timeout: 300
     resources:
       gpu: 1
-      gpu_type: nvidia-l4
+      gpu_type: nvidia-tesla-t4
 envs:
 - name: HF_TOKEN
 - name: CLLAMA_MODEL
