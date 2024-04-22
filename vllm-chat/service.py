@@ -16,15 +16,32 @@ If a question does not make any sense, or is not factually coherent, explain why
 <</SYS>>
 
 {user_prompt} [/INST] """,
+    "mistral:7b-instruct": """<s>[INST]
+You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe. Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
+
+If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.
+
+{user_prompt} [/INST] """,
 }
 
 MODEL_ID_MAP = {
     "llama2:7b-chat": "meta-llama/Llama-2-7b-chat-hf",
+    "mistral:7b-instruct": "mistralai/Mistral-7B-Instruct-v0.2",
 }
 
 MODEL_CONFIG_MAP = {
     "llama2:7b-chat": {
         "name": "llama2",
+        "traffic": {
+            "timeout": 300,
+        },
+        "resources": {
+            "gpu": 1,
+            "gpu_type": "nvidia-l4",
+        },
+    },
+    "mistral:7b-instruct": {
+        "name": "mistral",
         "traffic": {
             "timeout": 300,
         },
@@ -39,6 +56,9 @@ MODEL_ALIAS_MAP = {
     "llama2": "llama2:7b-chat",
     "llama2:7b": "llama2:7b-chat",
     "llama2:7b-chat": "llama2:7b-chat",
+    "mistral": "mistral:7b-instruct",
+    "mistral:7b": "mistral:7b-instruct",
+    "mistral:7b-instruct": "mistral:7b-instruct",
 }
 
 
