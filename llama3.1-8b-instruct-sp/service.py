@@ -50,6 +50,7 @@ class VLLM:
                 "uv",
                 "pip",
                 "install",
+                "--user",
                 "-r",
                 cwd / "requirements.txt",
             ],
