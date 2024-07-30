@@ -5,8 +5,6 @@ import bentoml
 from annotated_types import Ge, Le
 from typing_extensions import Annotated
 
-from bentovllm_openai.utils import openai_endpoints
-
 
 MAX_TOKENS = 1024
 SYSTEM_PROMPT = """You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe. Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
@@ -23,15 +21,12 @@ PROMPT_TEMPLATE = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
 MODEL_ID = "meta-llama/Meta-Llama-3.1-8B-Instruct"
 
-@openai_endpoints(
-    model_id=MODEL_ID,
-    default_chat_completion_parameters=dict(stop=["<|eot_id|>"]),
-)
+
 @bentoml.service(
-    name="bentovllm-llama3.1-8b-insruct-service",
+    name="bentovllm-llama3.1-8b-insruct-service-sp",
     traffic={
         "timeout": 300,
-        "concurrency": 256, # Matches the default max_num_seqs in the VLLM engine
+        "concurrency": 256,  # Matches the default max_num_seqs in the VLLM engine
     },
     resources={
         "gpu": 1,
@@ -39,15 +34,33 @@ MODEL_ID = "meta-llama/Meta-Llama-3.1-8B-Instruct"
     },
 )
 class VLLM:
+    @bentoml.on_deployment
+    @staticmethod
+    def on_deployment():
+        import subprocess
+        import sys
+        import pathlib
+
+        cwd = pathlib.Path(__file__).parent
+
+        subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "uv",
+                "pip",
+                "install",
+                "-r",
+                cwd / "requirements.txt",
+            ],
+        )
 
     def __init__(self) -> None:
         from transformers import AutoTokenizer
         from vllm import AsyncEngineArgs, AsyncLLMEngine
 
         ENGINE_ARGS = AsyncEngineArgs(
-            model=MODEL_ID,
-            max_model_len=MAX_TOKENS,
-            enable_prefix_caching=True
+            model=MODEL_ID, max_model_len=MAX_TOKENS, enable_prefix_caching=True
         )
 
         self.engine = AsyncLLMEngine.from_engine_args(ENGINE_ARGS)
@@ -68,7 +81,8 @@ class VLLM:
         from vllm import SamplingParams
 
         SAMPLING_PARAM = SamplingParams(
-            max_tokens=max_tokens, stop_token_ids=self.stop_token_ids,
+            max_tokens=max_tokens,
+            stop_token_ids=self.stop_token_ids,
         )
 
         if system_prompt is None:
