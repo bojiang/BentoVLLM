@@ -8,5 +8,8 @@ include:
   - 'requirements.txt'
 envs:
   - name: HF_TOKEN
+python:
+  packages:
+    - huggingface_hub
 docker:
   python_version: 3.11
