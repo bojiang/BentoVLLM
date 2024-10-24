@@ -1,0 +1,16 @@
+service: 'service:VLLM'
+labels:
+  owner: bentoml-team
+  stage: demo
+include:
+  - '*.py'
+  - 'bentovllm_openai/*.py'
+  - 'requirements.txt'
+  - 'uv_cache/*'
+envs:
+  - name: HF_TOKEN
+python:
+  packages:
+    - huggingface_hub
+docker:
+  python_version: 3.11
