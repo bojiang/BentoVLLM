@@ -1,11 +1,4 @@
-import uuid
-from typing import AsyncGenerator, Optional
-
 import bentoml
-from annotated_types import Ge, Le
-from typing_extensions import Annotated
-
-from bentovllm_openai.utils import openai_endpoints
 
 
 MAX_TOKENS = 1024
@@ -23,15 +16,12 @@ PROMPT_TEMPLATE = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
 MODEL_ID = "meta-llama/Meta-Llama-3.1-8B-Instruct"
 
-@openai_endpoints(
-    model_id=MODEL_ID,
-    default_chat_completion_parameters=dict(stop=["<|eot_id|>"]),
-)
+
 @bentoml.service(
     name="llama3.1-8b-insruct-nomodel",
     traffic={
         "timeout": 300,
-        "concurrency": 256, # Matches the default max_num_seqs in the VLLM engine
+        "concurrency": 256,  # Matches the default max_num_seqs in the VLLM engine
     },
     resources={
         "gpu": 1,
@@ -39,7 +29,6 @@ MODEL_ID = "meta-llama/Meta-Llama-3.1-8B-Instruct"
     },
 )
 class VLLM:
-
     def __init__(self) -> None:
         from transformers import AutoTokenizer
         from vllm import AsyncEngineArgs, AsyncLLMEngine

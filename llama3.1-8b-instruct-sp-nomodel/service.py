@@ -1,9 +1,4 @@
-import uuid
-from typing import AsyncGenerator, Optional
-
 import bentoml
-from annotated_types import Ge, Le
-from typing_extensions import Annotated
 
 
 MAX_TOKENS = 1024
