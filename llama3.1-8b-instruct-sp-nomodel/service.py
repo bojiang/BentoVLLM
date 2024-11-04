@@ -29,8 +29,6 @@ MODEL_ID = "meta-llama/Meta-Llama-3.1-8B-Instruct"
     },
 )
 class VLLM:
-    model_id = bentoml.models.HuggingFaceModel(MODEL_ID)
-
     @bentoml.on_deployment
     @staticmethod
     def on_deployment():
