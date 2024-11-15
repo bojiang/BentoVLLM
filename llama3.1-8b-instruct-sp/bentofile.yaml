@@ -11,5 +11,6 @@ envs:
 python:
   packages:
     - huggingface_hub
+  lock_packages: false
 docker:
   python_version: 3.11
