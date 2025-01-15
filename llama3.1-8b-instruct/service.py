@@ -1,4 +1,3 @@
-import os
 import uuid
 from argparse import Namespace
 from typing import AsyncGenerator, Optional
@@ -8,6 +7,7 @@ from annotated_types import Ge, Le
 from typing_extensions import Annotated
 
 import fastapi
+
 openai_api_app = fastapi.FastAPI()
 
 MAX_MODEL_LEN = 4192
@@ -29,7 +29,7 @@ MODEL_ID = "meta-llama/Meta-Llama-3.1-8B-Instruct"
     },
     resources={
         "gpu": 1,
-        "gpu_type": "nvidia-l4",
+        "gpu_type": "nvidia-tesla-a100",
     },
 )
 class VLLM:
@@ -85,7 +85,6 @@ class VLLM:
         vllm_api_server.init_app_state(
             self.engine, model_config, openai_api_app.state, args
         )
-
 
     @bentoml.api
     async def generate(
