@@ -31,6 +31,8 @@ include = [
 [tool.bentoml.build.args]
 name = "llama3.1-8b-instruct"
 tp = 1
+gpu_type = "nvidia-l4"
+max_model_len = 4096
 autotune = [
   1,
   2,

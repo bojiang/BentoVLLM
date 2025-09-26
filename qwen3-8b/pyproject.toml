@@ -30,7 +30,8 @@ include = [
 
 [tool.bentoml.build.args]
 name = "qwen3-8b"
-gpu_type = "nvidia-h100-80gb"
+gpu_type = "nvidia-l4"
+max_model_len = 4096
 tp = 1
 autotune = [
   1,
